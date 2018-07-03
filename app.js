@@ -11,9 +11,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var catsRouter = require('./routes/cats');
 
+
+
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://localhost/catsdb';
+var mongoDB = 'mongodb://localhost:27017/catsdb';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -36,9 +38,10 @@ app.use('/users', usersRouter);
 app.use('/demo', catsRouter);
 
 // catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   next(createError(404));
-});
+}); 
 
 // error handler
 app.use(function(err, req, res, next) {
