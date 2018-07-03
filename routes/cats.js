@@ -1,3 +1,6 @@
+// .routes/cats.js
+// this is a router/controller for catsdb collection 'cats'
+
 var express = require('express');
 var router = express.Router();
 

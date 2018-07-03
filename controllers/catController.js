@@ -1,45 +1,80 @@
+// ./controllers/catController.js implements the routes for 'cats' collection
+
+var mongoose = require('mongoose');
 var Cat = require('../models/catmodel');
 
 exports.index = function(req, res) {
     res.send('NOT IMPLEMENTED: Cats Home Page');
 };
 
-// Display list of all cats.
-exports.cat_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat list');
+// Get list of all cats.
+exports.getCats = function(req, res) {
+//console.log("GET CHECK");
+  Cat.find({}, function(err, results) {
+    if (err) throw err;
+    console.log('Cats found!');
+    // results = object of all the users
+    console.log(results);
+    res.set('Access-Control-Allow-Origin','*');
+    res.json(results);
+  });
 };
 
-// Display detail page for a specific cat.
-exports.cat_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat detail: ' + req.params.id);
+// Get all data for one cat (by name)
+exports.getCatByName = function(req, res) {
+  var catID = req.params.id;
+  Cat.find(
+    { name: catID },
+    function(err, results) {
+      if (err) throw err;
+      console.log('Cat found!');
+      console.log(results);
+      res.set('Access-Control-Allow-Origin','*');
+      res.json(results);
+  });
 };
 
-// Display cat create form on GET.
-exports.cat_create_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat create GET');
+// Handle cat update on PUT (find by name)
+exports.updateCat = function(req, res) {
+  var catID = req.params.id;
+  Cat.findOneAndUpdate(
+    { name: catID },
+    req.body,
+    { new : true },
+    function(err, cat) {
+      if (err) throw err;
+      console.log('Cat updated!');
+      console.log(cat);
+      res.set('Access-Control-Allow-Origin','*');
+      res.json(cat);
+    }
+  );
 };
 
 // Handle cat create on POST.
-exports.cat_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat create POST');
+exports.createCat = function(req, res) {
+  var newcat = new Cat(req.body);
+  newcat.save(function(err, cat) {
+    if (err) throw err;
+    console.log('Cat created!');
+    console.log(cat);
+    res.set('Access-Control-Allow-Origin','*');
+//  res.json({ok: true});
+    res.json(cat);
+  });
 };
 
-// Display cat delete form on GET.
-exports.cat_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat delete GET');
-};
-
-// Handle cat delete on POST.
-exports.cat_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat delete POST');
-};
-
-// Display cat update form on GET.
-exports.cat_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat update GET');
-};
-
-// Handle cat update on POST.
-exports.cat_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Cat update POST');
+// Handle cat delete (find by name)
+exports.deleteCat = function(req, res) {
+  var catID = req.params.id;
+  Cat.findOneAndRemove(
+    { name: catID },
+    function(err, results) {
+      if (err) throw err;
+      console.log('Cat deleted!');
+      console.log(results);
+      res.set('Access-Control-Allow-Origin','*');
+      res.json(results);
+    }
+  );
 };

@@ -7,16 +7,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var config = require('./config/config');   // use your own config file
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var catsRouter = require('./routes/cats');
-
-
+var catsRouter = require('./routes/demo');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
+/*
 var mongoDB = 'mongodb://localhost:27017/catsdb';
 mongoose.connect(mongoDB);
+*/
+mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -41,7 +44,7 @@ app.use('/demo', catsRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
-}); 
+});
 
 // error handler
 app.use(function(err, req, res, next) {
