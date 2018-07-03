@@ -1,0 +1,9 @@
+// personal environment variables  -  save in ./config directory as 'config.js'
+
+module.exports = {
+  mongo: {
+    uri: 'mongodb://localhost:27017/catsdb',
+    options: {}
+  },
+  port: process.env.PORT || 1234
+}
