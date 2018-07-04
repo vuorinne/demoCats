@@ -7,11 +7,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var config = require('./config/config');   // use your own config file
+var config = require('./config/config');   // use your own config file (for server port and mongoDB connection)
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var catsRouter = require('./routes/demo');
+var demoRouter = require('./routes/demo');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/demo', catsRouter);
+app.use('/demo', demoRouter);
 
 // catch 404 and forward to error handler
 
