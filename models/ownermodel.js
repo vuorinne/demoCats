@@ -7,15 +7,22 @@ var mongoose = require('mongoose');
 //
 var Schema = mongoose.Schema;
 
-// Create schema for each collection
+// Create schema for collection
 var ownerSchema = new Schema(
   {
-    first_name: String,
-    family_name: String,
+    first_name: {type: String, required: true, max: 30},
+    family_name: {type: String, required: true, max: 30},
     city: String
   },
   {collection: "ownercollection", versionKey: false}
 );
+
+// Virtual for owner's full name
+ownerSchema
+.virtual('fullname')
+.get(function () {
+  return this.first_name + ', ' + this.family_name;
+});
 
 // map schema to collection
 var Owner = mongoose.model('ownermodel', ownerSchema);

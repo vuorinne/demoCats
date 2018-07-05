@@ -7,11 +7,21 @@ var mongoose = require('mongoose');
 //
 var Schema = mongoose.Schema;
 
-// Create schema for each collection
+// Create schema for collection
 var catSchema = new Schema(
   {
-    name: String,
-    age: Number
+    name: {
+      type: String,
+      max: 30,
+      required: [true, 'No name?']
+    },
+    age: {
+      type: Number,
+      min: 0,
+      max: [25, 'Max age is 25'],
+      required: [true, 'No age?']
+    },
+    owner : { type: Schema.Types.ObjectId, ref: 'Owner' }
   },
   {collection: "catcollection", versionKey: false}
 );
