@@ -18,18 +18,30 @@ router.get('/', cat_controller.index);
 // GET request for list of all Cat items.
 router.get('/cats', cat_controller.getCats);
 
-// GET request for one Cat.
-router.get('/cats/:id', cat_controller.getCatByName);
-
-// find one cat (by name) and update
-// PUT request to find and update Cat.
-router.put('/cats/:id', cat_controller.updateCat);
-
 // POST request for creating Cat.
 router.post('/cats', cat_controller.createCat);
 
-// DELETE request to kill a Cat (by name).
+// GET request for one Cat by id.
+router.get('/cats/:id', cat_controller.getCat);
+
+// find one cat (by id) and update
+// PUT request to find and update Cat.
+router.put('/cats/:id', cat_controller.updateCat);
+
+// DELETE request to kill a Cat (by id).
 router.delete('/cats/:id', cat_controller.deleteCat);
+
+// versions by name for testing
+
+// GET request for one Cat by name.
+router.get('/catn/:id', cat_controller.getCatName);
+
+// find one cat (by name) and update
+// PUT request to find and update Cat.
+router.put('/catn/:id', cat_controller.updateCatName);
+
+// DELETE request to kill a Cat (by name).
+router.delete('/catn/:id', cat_controller.deleteCatName);
 
 //
 // CAT ROUTING END
@@ -37,6 +49,7 @@ router.delete('/cats/:id', cat_controller.deleteCat);
 // needed: list of cats AND their owners
 //
 // router.get('/cats_owners',cat_controller.getCatsAndOwners);
+//
 //
 // OWNER ROUTING with separate controller
 //
