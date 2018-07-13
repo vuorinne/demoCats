@@ -9,10 +9,6 @@ var logger = require('morgan');
 
 var config = require('./config/config');   // use your own config file (for server port and mongoDB connection)
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var demoRouter = require('./routes/demo');
-
 //Set up mongoose connection
 var mongoose = require('mongoose');
 /*
@@ -23,6 +19,10 @@ mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var demoRouter = require('./routes/demo');
 
 // Express server start
 var app = express();

@@ -2,6 +2,7 @@
 
 //Require Mongoose
 var mongoose = require('mongoose');
+var Owner = require('../models/ownermodel');
 //
 // SCHEMA CREATION
 //

@@ -5,8 +5,8 @@ var express = require('express');
 var router = express.Router();
 
 // Require controller modules.
-var cat_controller = require('../controllers/catController');
 var owner_controller = require('../controllers/ownerController');
+var cat_controller = require('../controllers/catController');
 //
 // CAT ROUTING - separate controller module
 //
@@ -43,12 +43,13 @@ router.put('/catn/:id', cat_controller.updateCatName);
 // DELETE request to kill a Cat (by name).
 router.delete('/catn/:id', cat_controller.deleteCatName);
 
+
+// SPECIAL: list of cats AND their owners
+//
+router.get('/cats_owners', cat_controller.getCatsAndOwners);
+
 //
 // CAT ROUTING END
-//
-// needed: list of cats AND their owners
-//
-// router.get('/cats_owners',cat_controller.getCatsAndOwners);
 //
 //
 // OWNER ROUTING with separate controller
