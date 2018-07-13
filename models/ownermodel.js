@@ -2,6 +2,8 @@
 
 //Require Mongoose
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
+var Cat = require('../models/catmodel');
 //
 // SCHEMA CREATION
 //
@@ -10,9 +12,24 @@ var Schema = mongoose.Schema;
 // Create schema for collection
 var ownerSchema = new Schema(
   {
-    first_name: {type: String, required: true, max: 30},
-    family_name: {type: String, required: true, max: 30},
-    city: String
+    id: ObjectId,
+    first_name: {
+      type: String, 
+      required: true, 
+      max: 30
+    },
+    family_name: {
+      type: String, 
+      required: true, 
+      max: 30
+    },
+    city: String,
+    cats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cat' }],
+    created: { 
+      type: Date, 
+      default: Date.now, 
+      required: true 
+    },
   },
   {collection: "ownercollection", versionKey: false}
 );

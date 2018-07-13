@@ -2,7 +2,7 @@
 
 //Require Mongoose
 var mongoose = require('mongoose');
-var Owner = require('../models/ownermodel');
+var owner = require('../models/ownermodel');
 //
 // SCHEMA CREATION
 //
@@ -22,7 +22,12 @@ var catSchema = new Schema(
       max: [25, 'Max age is 25'],
       required: [true, 'No age?']
     },
-    owner : { type: mongoose.Schema.Types.ObjectId, ref: 'Owner' }
+    owner : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Owner' }],
+    created: { 
+      type: Date, 
+      default: Date.now, 
+      required: true 
+    },
   },
   {collection: "catcollection", versionKey: false}
 );

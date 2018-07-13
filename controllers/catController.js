@@ -1,7 +1,7 @@
 // ./controllers/catController.js implements the routes for 'cats' collection
 
 var mongoose = require('mongoose');
-var Owner = require('../models/ownermodel');
+var owner = require('../models/ownermodel');
 var Cat = require('../models/catmodel');
 
 
@@ -24,16 +24,17 @@ exports.getCats = function(req, res) {
 // Get list of all cats with their owner data
 exports.getCatsAndOwners = function(req, res) {
   Cat
-    .find({})
-    .populate('owner')
+    .find()
+    .populate('Owner', owner)
     .exec(function(err, results) {
       if (err) throw err;
-      console.log('Cats w owners found!');
+      console.log('Cats with owners found!');
       console.log(results);
       res.set('Access-Control-Allow-Origin','*');
       res.json(results);
   });
 };
+
 
 // Handle cat create on POST.
 exports.createCat = function(req, res) {
@@ -46,7 +47,41 @@ exports.createCat = function(req, res) {
     //  res.json({ok: true});
     res.json(cat);
 });
-};
+}; 
+
+/*
+EXPERIMENTAL POST method handling
+Not working as intented.
+
+//Handle cat create on POST.  
+exports.createCat = function(req, res) {
+  //creating new owner
+  var newowner = owner({
+    _id: mongoose.Types.ObjectId(),
+    first_name: String,
+    family_name: String
+  });
+    newowner.save(function(err, owner) {
+      if (err) throw err;
+
+        var newcat = new Cat({
+          name: req.body.name,
+          age: req.body.age,
+          owner: owner._id
+        });
+
+        //Creating new cat
+        newcat.save(function(err, cat) {
+          if (err) throw err;
+          console.log('Cat created!');
+          console.log(cat);
+          res.set('Access-Control-Allow-Origin','*');
+      //  res.json({ok: true});
+          res.json(newcat);
+        });
+  });
+}; */
+
 
 // Get all data for one cat (by id)
 exports.getCat = function(req, res) {
