@@ -74,3 +74,16 @@ exports.deleteOwner = function(req, res) {
     }
   );
 };
+
+exports.getCatsAndOwners = function(req, res) {
+  Owner
+    .find()
+    .populate('Cat')
+    .exec(function(err, results) {
+      if (err) throw err;
+      console.log('Cats with owners found!');
+      console.log(results);
+      res.set('Access-Control-Allow-Origin','*');
+      res.json(results);
+  });
+};

@@ -1,5 +1,6 @@
 // ./controllers/catController.js implements the routes for 'cats' collection
-
+var express = require('express');
+var router = express.Router();
 var mongoose = require('mongoose');
 var owner = require('../models/ownermodel');
 var Cat = require('../models/catmodel');
@@ -25,7 +26,7 @@ exports.getCats = function(req, res) {
 exports.getCatsAndOwners = function(req, res) {
   Cat
     .find()
-    .populate('Owner', owner)
+    .populate('owner', first_name, family_name)
     .exec(function(err, results) {
       if (err) throw err;
       console.log('Cats with owners found!');
@@ -37,6 +38,7 @@ exports.getCatsAndOwners = function(req, res) {
 
 
 // Handle cat create on POST.
+
 exports.createCat = function(req, res) {
   var newcat = new Cat(req.body);
   newcat.save(function(err, cat) {
@@ -48,40 +50,6 @@ exports.createCat = function(req, res) {
     res.json(cat);
 });
 }; 
-
-/*
-EXPERIMENTAL POST method handling
-Not working as intented.
-
-//Handle cat create on POST.  
-exports.createCat = function(req, res) {
-  //creating new owner
-  var newowner = owner({
-    _id: mongoose.Types.ObjectId(),
-    first_name: String,
-    family_name: String
-  });
-    newowner.save(function(err, owner) {
-      if (err) throw err;
-
-        var newcat = new Cat({
-          name: req.body.name,
-          age: req.body.age,
-          owner: owner._id
-        });
-
-        //Creating new cat
-        newcat.save(function(err, cat) {
-          if (err) throw err;
-          console.log('Cat created!');
-          console.log(cat);
-          res.set('Access-Control-Allow-Origin','*');
-      //  res.json({ok: true});
-          res.json(newcat);
-        });
-  });
-}; */
-
 
 // Get all data for one cat (by id)
 exports.getCat = function(req, res) {
@@ -96,6 +64,7 @@ exports.getCat = function(req, res) {
       res.json(results);
   });
 };
+
 
 // Handle cat update on PUT (find by id)
 exports.updateCat = function(req, res) {
@@ -113,6 +82,15 @@ exports.updateCat = function(req, res) {
     }
   );
 };
+
+/*
+// Experimental PUT
+exports.updateCat = function(req, res, next) {
+  Cat.findByIdAndUpdate(req.params.id, req.body, function(err, cat){
+    if (err) return next (err);
+    res.json(cat);
+  });
+};*/
 
 // Handle cat delete (find by id)
 exports.deleteCat = function(req, res) {

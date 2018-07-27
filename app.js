@@ -5,6 +5,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 
 var config = require('./config/config');   // use your own config file (for server port and mongoDB connection)
@@ -20,9 +21,11 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demoRouter = require('./routes/demo');
+
 
 // Express server start
 var app = express();
@@ -35,6 +38,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({'extended':'false'}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
