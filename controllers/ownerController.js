@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Owner = require('../models/ownermodel');
 
+
 // Get list of all owners.
 exports.getOwners = function(req, res) {
 //console.log("GET CHECK");
@@ -18,9 +19,8 @@ exports.getOwners = function(req, res) {
 
 // Get all data for one owner (by id)
 exports.getOwnerById = function(req, res) {
-  var ownerID = req.params.id;
   Owner.find(
-    { _id: ownerID },
+    { _id: req.params.id },
     function(err, results) {
       if (err) throw err;
       console.log('Owner found!');
@@ -32,9 +32,8 @@ exports.getOwnerById = function(req, res) {
 
 // Handle owner update on PUT (find by id)
 exports.updateOwner = function(req, res) {
-  var ownerID = req.params.id;
   Owner.findOneAndUpdate(
-    { _id: ownerID },
+    { _id: req.params.id },
     req.body,
     { new : true },
     function(err, owner) {
@@ -62,9 +61,8 @@ exports.createOwner = function(req, res) {
 
 // Handle owner delete (find by id)
 exports.deleteOwner = function(req, res) {
-  var ownerID = req.params.id;
   Owner.findOneAndRemove(
-    { _id: ownerID },
+    { _id: req.params.id },
     function(err, results) {
       if (err) throw err;
       console.log('Owner deleted!');
@@ -75,15 +73,3 @@ exports.deleteOwner = function(req, res) {
   );
 };
 
-exports.getCatsAndOwners = function(req, res) {
-  Owner
-    .find()
-    .populate('Cat')
-    .exec(function(err, results) {
-      if (err) throw err;
-      console.log('Cats with owners found!');
-      console.log(results);
-      res.set('Access-Control-Allow-Origin','*');
-      res.json(results);
-  });
-};

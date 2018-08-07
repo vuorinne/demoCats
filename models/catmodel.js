@@ -30,6 +30,10 @@ var catSchema = new Schema(
       default: Date.now, 
       required: true 
     },
+    owner: [{
+      type: Schema.Types.ObjectId,
+      ref: 'ownermodel'
+    }]
   },
   {collection: "catcollection", versionKey: false}
 );

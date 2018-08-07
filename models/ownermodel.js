@@ -24,12 +24,15 @@ var ownerSchema = new Schema(
       max: 30
     },
     city: String,
-    //cats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cat' }],
     created: { 
       type: Date, 
       default: Date.now, 
       required: true 
     },
+    cats: [{
+      type: Schema.Types.ObjectId,
+      ref: 'catmodel'
+    }]
   },
   {collection: "ownercollection", versionKey: false}
 );
