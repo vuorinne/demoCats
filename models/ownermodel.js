@@ -12,7 +12,7 @@ var Schema = mongoose.Schema;
 // Create schema for collection
 var ownerSchema = new Schema(
   {
-    //id: ObjectId,
+    _id: { type: Schema.ObjectId, auto: true },
     first_name: {
       type: String, 
       required: true, 
@@ -29,7 +29,7 @@ var ownerSchema = new Schema(
       default: Date.now, 
       required: true 
     },
-    cats: [{
+    cat: [{
       type: Schema.Types.ObjectId,
       ref: 'catmodel'
     }]

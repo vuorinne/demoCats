@@ -7,7 +7,8 @@ var mongoose = require('mongoose');
 //
 // SCHEMA CREATION
 //
-var Schema = mongoose.Schema;
+var Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 
 // Create schema for collection
 var userSchema = new Schema(
@@ -23,6 +24,14 @@ var userSchema = new Schema(
         type: String,
         min: 4,
         required: [true, 'No password given.']     // Better validation coming later
+    },
+    ownerInfo: {
+        type: Schema.Types.ObjectId,
+        ref: 'ownermodel'
+    },
+    catInfo: {
+        type: Schema.Types.ObjectId,
+        ref: 'catmodel'
     },
     created: { 
         type: Date, 

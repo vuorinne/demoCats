@@ -20,7 +20,7 @@ exports.getCats = function(req, res) {
 
 // Handle cat create on POST.
 exports.createCat = function(req, res) {
-  var newcat = new Cat(req.body);
+  var newcat = new Cat({name: req.body, owner: newOwner._id});
   newcat.save(function(err, cat) {
     if (err) throw err;
     console.log('Cat created!');

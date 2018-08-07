@@ -26,7 +26,7 @@ exports.getUserById = function(req, res) {
     });
 };
 
-// Handle owner update on PUT (find by id)
+// Handle user update on PUT (find by id)
 exports.updateUser = function(req, res) {
     User.findByIdAndUpdate(req.params.id, req.body, function(err, user) {
         if(err) throw err;
@@ -37,7 +37,7 @@ exports.updateUser = function(req, res) {
     })
 };
 
-// Handle owner create on POST.
+// Handle userr create on POST.
 exports.createUser = function(req, res) {
     var newUser = new User(req.body);
     newUser.save(function(err, user) {
@@ -49,7 +49,7 @@ exports.createUser = function(req, res) {
     });
 };
 
-// Handle owner DELETE (find by id)
+// Handle user DELETE (find by id)
 exports.deleteUser = function(req, res) {
     User.findByIdAndRemove(req.params.id, function(err, results) {
         if(err) throw err;

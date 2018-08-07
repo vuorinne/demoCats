@@ -44,12 +44,19 @@ router.get('/owners', owner_controller.getOwners);
 // GET request for one Owner.
 router.get('/owners/:id', owner_controller.getOwnerById);
 
+// GET request for one owner with cats.
+router.get('/owners/:id/cat', owner_controller.getOwnerWithCat);
+
 // find one Owner (by Id) and update
 // PUT request to find and update Owner.
 router.put('/owners/:id', owner_controller.updateOwner);
 
 // POST request for creating Owner.
-router.post('/owners', owner_controller.createOwner);
+// Server crashes if this is enabled with one below.
+//router.post('/owners', owner_controller.createOwner);
+
+// POST request for creating Owner and Cat.
+router.post('/owners', owner_controller.createOwnerWithCat);
 
 // DELETE request to remove an Owner (by Id).
 router.delete('/owners/:id', owner_controller.deleteOwner);
