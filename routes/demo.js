@@ -7,6 +7,7 @@ var router = express.Router();
 // Require controller modules.
 var owner_controller = require('../controllers/ownerController');
 var cat_controller = require('../controllers/catController');
+var user_controller = require('../controllers/userController');
 
 
 //
@@ -57,13 +58,35 @@ router.delete('/owners/:id', owner_controller.deleteOwner);
 // OWNER ROUTING END
 //
 
+//
+// USER ROUTING with separate controller
+//
+
+// Get request for all Users
+router.get('/users', user_controller.getUsers);
+
+// GET request for one User.
+router.get('/users/:id', user_controller.getUserById);
+
+// find one User (by Id) and update
+// PUT request to find and update User.
+router.put('/users/:id', user_controller.updateUser);
+
+// POST request for creating User.
+router.post('/users', user_controller.createUser);
+
+// DELETE request to remove an User (by Id).
+router.delete('/users/:id', user_controller.deleteUser);
+
+
+//
+// USER ROUTING END
+//
 
 
 //
 // Experimental routes
 //
-
-
 
 //
 // EXPERIMENTAL ROUTES END

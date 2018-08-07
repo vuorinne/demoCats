@@ -54,7 +54,6 @@ exports.createOwner = function(req, res) {
     console.log('Owner created!');
     console.log(owner);
     res.set('Access-Control-Allow-Origin','*');
-//  res.json({ok: true});
     res.json(owner);
   });
 };
