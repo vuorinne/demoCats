@@ -1,5 +1,7 @@
 # demoCats
-Kissaserverin runko 
+Node.JS project for Opiframe Oy's Internet of Things student program.
+
+## Kissaserverin runko 
 - nodeJS ja express
 - mongo, mongoose
 - rakenne mozillan sivujen mukaan
