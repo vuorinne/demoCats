@@ -42,19 +42,6 @@ exports.createOwner = function(req, res) {
   });
 };
 
-// GET one owner data WITH cats (by id)
-exports.getOwnerWithCat = function(req, res) {
-  Owner.findOne({}).populate('cat').exec(function(err, owner) { 
-    // Your callback code where you can access subdomain directly through custPhone.subdomain.name 
-    if(err) throw err;
-    console.log('Owner with cat: ');
-    console.log(owner.cat.name);
-    res.set('Access-Control-Allow-Origin','*');
-    res.json(owner);
-    });
-};
-
-
 // Handle owner update on PUT (find by id)
 exports.updateOwner = function(req, res) {
   Owner.findOneAndUpdate(
@@ -71,8 +58,6 @@ exports.updateOwner = function(req, res) {
   );
 };
 
-
-
 // Handle owner delete (find by id)
 exports.deleteOwner = function(req, res) {
   Owner.findOneAndRemove(
@@ -87,36 +72,3 @@ exports.deleteOwner = function(req, res) {
   );
 };
 
-/*
-Handle owner and cat creation on POST.
-With this new owner and cat is created.
-The population works on cat and you can see the assigned owner's ID 
-in cat's data on the DB.
-*/
-exports.createOwnerWithCat = function(req, res) {
-  var newowner = new Owner({
-    _id: new mongoose.Types.ObjectId(),
-    first_name: req.body.first_name,
-    family_name: req.body.family_name,
-    city: req.body.city 
-  });
-  newowner.save(function(err) {
-    if (err) throw err;
-
-      var newcat = new Cat({
-        name: req.body.name,
-        age: req.body.age,
-        cat_owner: newowner._id
-      })
-
-      newcat.save(function(err) {
-        if (err) throw err;
-      })
-    console.log('Owner created!');
-    console.log(newowner);
-    console.log('Cat created!');
-    console.log(newcat);
-    res.set('Access-Control-Allow-Origin','*');
-    res.json(newowner);
-  });
-};

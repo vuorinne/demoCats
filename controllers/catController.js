@@ -75,3 +75,12 @@ exports.deleteCat = function(req, res) {
   );
 };
 
+exports.getCatWithOwner = function(req, res) {
+  Cat.findOne({_id: req.params.id}) 
+    .populate('cat_owner', 'first_name')
+    .exec(function(err, cat) {
+      if(err) throw err;
+        console.log('Owner of the cat is %s', cat.cat_owner.first_name); // return undefined but it works!!
+        res.json(cat);
+    });
+};

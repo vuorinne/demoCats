@@ -8,7 +8,7 @@ var router = express.Router();
 var owner_controller = require('../controllers/ownerController');
 var cat_controller = require('../controllers/catController');
 var user_controller = require('../controllers/userController');
-
+var catOwner_controller = require('../controllers/catOwnerController');
 
 //
 // CAT ROUTING - separate controller module
@@ -18,17 +18,17 @@ var user_controller = require('../controllers/userController');
 router.get('/cats', cat_controller.getCats);
 
 // POST request for creating Cat.
-router.post('/cats', cat_controller.createCat);
+router.post('/cat', cat_controller.createCat);
 
 // GET request for one Cat by id.
-router.get('/cats/:id', cat_controller.getCat);
+//router.get('/cats/:id', cat_controller.getCat); // Remember to uncomment if needed.
 
 // find one cat (by id) and update
 // PUT request to find and update Cat.
-router.put('/cats/:id', cat_controller.updateCat);
+router.put('/cat/:id', cat_controller.updateCat);
 
 // DELETE request to kill a Cat (by id).
-router.delete('/cats/:id', cat_controller.deleteCat);
+router.delete('/cat/:id', cat_controller.deleteCat);
 //
 // CAT ROUTING END
 //
@@ -42,24 +42,18 @@ router.delete('/cats/:id', cat_controller.deleteCat);
 router.get('/owners', owner_controller.getOwners);
 
 // GET request for one Owner.
-router.get('/owners/:id', owner_controller.getOwnerById);
-
-// GET request for one owner with cats.
-router.get('/owners/:id/cat', owner_controller.getOwnerWithCat);
+router.get('/owner/:id', owner_controller.getOwnerById);
 
 // find one Owner (by Id) and update
 // PUT request to find and update Owner.
-router.put('/owners/:id', owner_controller.updateOwner);
+router.put('/owner/:id', owner_controller.updateOwner);
 
 // POST request for creating Owner.
 // Server crashes if this is enabled with one below.
-//router.post('/owners', owner_controller.createOwner);
-
-// POST request for creating Owner and Cat.
-router.post('/owners', owner_controller.createOwnerWithCat);
+router.post('/owner', owner_controller.createOwner);
 
 // DELETE request to remove an Owner (by Id).
-router.delete('/owners/:id', owner_controller.deleteOwner);
+router.delete('/owner/:id', owner_controller.deleteOwner);
 
 //
 // OWNER ROUTING END
@@ -73,18 +67,17 @@ router.delete('/owners/:id', owner_controller.deleteOwner);
 router.get('/users', user_controller.getUsers);
 
 // GET request for one User.
-router.get('/users/:id', user_controller.getUserById);
+router.get('/user/:id', user_controller.getUserById);
 
 // find one User (by Id) and update
 // PUT request to find and update User.
-router.put('/users/:id', user_controller.updateUser);
+router.put('/user/:id', user_controller.updateUser);
 
 // POST request for creating User.
-router.post('/users', user_controller.createUser);
+router.post('/user', user_controller.createUser);
 
 // DELETE request to remove an User (by Id).
-router.delete('/users/:id', user_controller.deleteUser);
-
+router.delete('/user/:id', user_controller.deleteUser);
 
 //
 // USER ROUTING END
@@ -92,11 +85,20 @@ router.delete('/users/:id', user_controller.deleteUser);
 
 
 //
-// Experimental routes
+// Router for cats and owners
+// Only used when relational data is been handled.
 //
 
+// POST request for creating Owner and Cat.
+router.post('/new/', catOwner_controller.createOwnerWithCat);
+
+// GET request for one owner with cats.
+//router.get('/show/owner/:id/cat/', catOwner_controller.getOwnerWithCat);
+
+//GET request for one Cat by id and with owner.
+router.get('/show/cat/:id', cat_controller.getCatWithOwner);
 //
-// EXPERIMENTAL ROUTES END
+// CAT & OWNER ROUTING END
 //
 
 module.exports = router;

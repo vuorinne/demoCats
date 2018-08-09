@@ -24,15 +24,15 @@ var ownerSchema = new Schema(
       max: 30
     },
     city: String,
+    cat: [{
+      type: Schema.Types.ObjectId,
+      ref: 'catmodel'
+    }],
     created: { 
       type: Date, 
       default: Date.now, 
       required: true 
     },
-    cat: [{
-      type: Schema.Types.ObjectId,
-      ref: 'catmodel'
-    }]
   },
   {collection: "ownercollection", versionKey: false}
 );

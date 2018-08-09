@@ -12,27 +12,27 @@ var Schema = mongoose.Schema;
 // Create schema for collection
 var catSchema = new Schema(
   {
-    //_id: { type: Schema.ObjectId, auto: true },
-    name: {
+    _id: { type: Schema.ObjectId, auto: true },
+    cName: {
       type: String,
       max: 30,
-      //required: [true, 'No name?']
+      required: [true, 'No name?']
     },
-    age: {
+    cAge: {
       type: Number,
       min: 0,
       max: [25, 'Max age is 25'],
-      //required: [true, 'No age?']
+      required: [true, 'No age?']
     },
+    cat_owner: [{
+      type: Schema.Types.ObjectId,
+      ref: 'ownermodel'
+    }],
     created: { 
       type: Date, 
       default: Date.now, 
       required: true 
     },
-    cat_owner: [{
-      type: Schema.Types.ObjectId,
-      ref: 'ownermodel'
-    }]
   },
   {collection: "catcollection", versionKey: false}
 );
