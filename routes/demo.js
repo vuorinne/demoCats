@@ -21,7 +21,7 @@ router.get('/cats', cat_controller.getCats);
 router.post('/cat', cat_controller.createCat);
 
 // GET request for one Cat by id.
-//router.get('/cats/:id', cat_controller.getCat); // Remember to uncomment if needed.
+router.get('/cat/:id', cat_controller.getCat); // Remember to uncomment if needed.
 
 // find one cat (by id) and update
 // PUT request to find and update Cat.
@@ -96,7 +96,10 @@ router.post('/new/', catOwner_controller.createOwnerWithCat);
 //router.get('/show/owner/:id/cat/', catOwner_controller.getOwnerWithCat);
 
 //GET request for one Cat by id and with owner.
-router.get('/show/cat/:id', cat_controller.getCatWithOwner);
+router.get('/show/cat/:id', catOwner_controller.getCatWithOwner);
+
+//GET request for one Owner by id and with cat.
+router.get('/show/owner/:id', catOwner_controller.getOwnerWithCat);
 //
 // CAT & OWNER ROUTING END
 //

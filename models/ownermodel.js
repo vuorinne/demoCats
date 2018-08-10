@@ -13,6 +13,7 @@ var Schema = mongoose.Schema;
 var ownerSchema = new Schema(
   {
     _id: { type: Schema.ObjectId, auto: true },
+    /*
     first_name: {
       type: String, 
       required: true, 
@@ -22,6 +23,10 @@ var ownerSchema = new Schema(
       type: String, 
       required: true, 
       max: 30
+    },*/
+    fullname: {
+      type: String, 
+      required: true, 
     },
     city: String,
     cat: [{
@@ -38,11 +43,12 @@ var ownerSchema = new Schema(
 );
 
 // Virtual for owner's full name
+/*
 ownerSchema
 .virtual('fullname')
 .get(function () {
   return this.first_name + ', ' + this.family_name;
-});
+});*/
 
 // map schema to collection
 var Owner = mongoose.model('ownermodel', ownerSchema);

@@ -1,15 +1,6 @@
 // Controller for population and handling data between owners and cats.
 
-/*
-Notes for controller:
-Controller starting at row 27 is not functioning properly.
-For some reason when sending data from Postman, controller tries to insert Cat's data to owners model nameslots.
-This causes the server crash. On the other controller (Row 56) when the data is hard coded to request, the data goes to DB just fine.
 
-
-
-
-*/
 
 var mongoose = require('mongoose');
 var User = require('../models/usermodel');
@@ -27,16 +18,15 @@ in cat's data on the DB.
 exports.createOwnerWithCat = function(req, res) {
     var newowner = new Owner({
         _id: new mongoose.Types.ObjectId(),
-        first_name: req.body.first_name,
-        family_name: req.body.family_name,
-        city: req.body.city 
+        fullname: 'Esko Mörkö',
+        city: 'Tampere' 
     });
     newowner.save(function(err) {
         if (err) throw err;
 
     var newcat = new Cat({
-        cName: req.body.cName,
-        cAge: req.body.cAge,
+        cName: 'Kizza',
+        cAge: '4',
         cat_owner: newowner._id
     })
 
@@ -53,19 +43,19 @@ exports.createOwnerWithCat = function(req, res) {
 };
 */
 
+
 exports.createOwnerWithCat = function (req, res) {
     var newowner = new Owner({
         _id: new mongoose.Types.ObjectId(),
-        first_name: "Matti",
-        family_name: "Meikäläinen",
+        fullname: "Esko Mörkö",
         city: "Tampere"
     });
     newowner.save(function (err) {
         if (err) throw err;
         // Create new cat
         var newcat = new Cat({
-            cName: "Kissa",
-            cAge: "1",
+            cName: "Kisu",
+            cAge: "6",
             cat_owner: newowner._id
         })
 
@@ -95,13 +85,31 @@ exports.getOwnerWithCat = function (req, res) {
 };
 */
 
-// GET cat information with owner
+// GET Cat information with Owner
 exports.getCatWithOwner = function(req, res) {
     Cat.findOne({_id: req.params.id}) 
-    .populate('cat_owner', 'first_name', 'family_name')
+    .populate('cat_owner', 'fullname')
     .exec(function(err, cat) {
         if(err) throw err;
-            console.log('Owner of the cat is %s', cat.cat_owner.first_name, cat.cat_owner.family_name); // return undefined but it works!!
+            console.log('Owner of the cat is %s', cat.cat_owner.fullname); // return undefined but it works!!
+            res.json(cat);
+        });
+    };
+
+/*
+Can't populate cat's name. 
+Crashes the server with error message:
+TypeError: Cannot read property 'cName' of undefined
+
+TODO: Fix it.
+*/
+// GET Owner information with Cat
+exports.getOwnerWithCat = function(req, res) {
+    Owner.findOne({_id: req.params.id}) 
+    .populate('cat', 'cName')
+    .exec(function(err, cat) {
+        if(err) throw err;
+            console.log('Your cat name is %s', Owner.cat.cName); // return undefined but it works!!
             res.json(cat);
         });
     };
