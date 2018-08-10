@@ -20,7 +20,7 @@ exports.getCats = function(req, res) {
 
 // Handle cat create on POST.
 exports.createCat = function(req, res) {
-  var newcat = new Cat({name: req.body, owner: newOwner._id});
+  var newcat = new Cat(req.body);
   newcat.save(function(err, cat) {
     if (err) throw err;
     console.log('Cat created!');
@@ -29,7 +29,7 @@ exports.createCat = function(req, res) {
     //  res.json({ok: true});
     res.json(cat);
 });
-}; 
+};
 
 // Get all data for one cat (by id)
 exports.getCat = function(req, res) {
