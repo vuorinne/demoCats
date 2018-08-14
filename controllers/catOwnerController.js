@@ -10,7 +10,7 @@ var Cat = require('../models/catmodel');
 /*
 Handle owner and cat creation on POST.
 With this new owner and cat is created.
-The population works on cat and you can see the assigned owner's ID 
+The population works on cat and you can see the assigned owner's ID
 in cat's data on the DB.
 */
 
@@ -19,7 +19,7 @@ exports.createOwnerWithCat = function(req, res) {
     var newowner = new Owner({
         _id: new mongoose.Types.ObjectId(),
         fullname: 'Esko Mörkö',
-        city: 'Tampere' 
+        city: 'Tampere'
     });
     newowner.save(function(err) {
         if (err) throw err;
@@ -85,9 +85,19 @@ exports.getOwnerWithCat = function (req, res) {
 };
 */
 
+// GET all Cats with Owner name
+exports.getCatsWithO = function(req, res) {
+  Cat.find({})
+  .populate('cat_owner', 'fullname')
+  .exec(function(err, cats) {
+    if(err) throw err;
+        res.json(cats);
+  });
+};
+
 // GET Cat information with Owner
 exports.getCatWithOwner = function(req, res) {
-    Cat.findOne({_id: req.params.id}) 
+    Cat.findOne({_id: req.params.id})
     .populate('cat_owner', 'fullname')
     .exec(function(err, cat) {
         if(err) throw err;
@@ -97,7 +107,7 @@ exports.getCatWithOwner = function(req, res) {
     };
 
 /*
-Can't populate cat's name. 
+Can't populate cat's name.
 Crashes the server with error message:
 TypeError: Cannot read property 'cName' of undefined
 
@@ -105,7 +115,7 @@ TODO: Fix it.
 */
 // GET Owner information with Cat
 exports.getOwnerWithCat = function(req, res) {
-    Owner.findOne({_id: req.params.id}) 
+    Owner.findOne({_id: req.params.id})
     .populate('cat', 'cName')
     .exec(function(err, cat) {
         if(err) throw err;

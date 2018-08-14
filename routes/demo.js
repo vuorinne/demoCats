@@ -95,6 +95,9 @@ router.post('/new/', catOwner_controller.createOwnerWithCat);
 // GET request for one owner with cats.
 //router.get('/show/owner/:id/cat/', catOwner_controller.getOwnerWithCat);
 
+//GET request for all Cats with owner.
+router.get('/show/cats', catOwner_controller.getCatsWithO);
+
 //GET request for one Cat by id and with owner.
 router.get('/show/cat/:id', catOwner_controller.getCatWithOwner);
 
