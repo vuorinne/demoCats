@@ -91,6 +91,7 @@ exports.getCatsWithO = function(req, res) {
   .populate('cat_owner', 'fullname')
   .exec(function(err, cats) {
     if(err) throw err;
+        console.log(cats);
         res.json(cats);
   });
 };

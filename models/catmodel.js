@@ -24,14 +24,14 @@ var catSchema = new Schema(
       max: [25, 'Max age is 25'],
       required: [true, 'No age?']
     },
-    cat_owner: [{
+    cat_owner: {
       type: Schema.Types.ObjectId,
       ref: 'ownermodel'
-    }],
-    created: { 
-      type: Date, 
-      default: Date.now, 
-      required: true 
+    },
+    created: {
+      type: Date,
+      default: Date.now,
+      required: true
     },
   },
   {collection: "catcollection", versionKey: false}
