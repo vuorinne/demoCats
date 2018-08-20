@@ -21,7 +21,6 @@ exports.getCats = function(req, res) {
 // Handle cat create on POST.
 exports.createCat = function(req, res) {
   var newcat = new Cat(req.body);
-  newcat.cat_owner = new mongoose.Types.ObjectId;   // keksitään owner_id, korjattava edit:illä
   newcat.save(function(err, cat) {
     if (err) throw err;
     console.log('Cat created!');
