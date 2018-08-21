@@ -7,7 +7,6 @@ var router = express.Router();
 // Require controller modules.
 var owner_controller = require('../controllers/ownerController');
 var cat_controller = require('../controllers/catController');
-var user_controller = require('../controllers/userController');
 var catOwner_controller = require('../controllers/catOwnerController');
 
 //
@@ -60,40 +59,9 @@ router.delete('/owner/:id', owner_controller.deleteOwner);
 //
 
 //
-// USER ROUTING with separate controller
-//
-
-// Get request for all Users
-router.get('/users', user_controller.getUsers);
-
-// GET request for one User.
-router.get('/user/:id', user_controller.getUserById);
-
-// find one User (by Id) and update
-// PUT request to find and update User.
-router.put('/user/:id', user_controller.updateUser);
-
-// POST request for creating User.
-router.post('/user', user_controller.createUser);
-
-// DELETE request to remove an User (by Id).
-router.delete('/user/:id', user_controller.deleteUser);
-
-//
-// USER ROUTING END
-//
-
-
-//
 // Router for cats and owners
 // Only used when relational data is been handled.
 //
-
-// POST request for creating Owner and Cat.
-router.post('/new/', catOwner_controller.createOwnerWithCat);
-
-// GET request for one owner with cats.
-//router.get('/show/owner/:id/cat/', catOwner_controller.getOwnerWithCat);
 
 //GET request for all Cats with owner.
 router.get('/show/cats', catOwner_controller.getCatsWithO);

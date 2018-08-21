@@ -12,8 +12,7 @@ describe('Test for saving new owner.', function(){
         //Create test
         it("New user saved to database", function(done){
             var owner = new Owner({
-                first_name:"Matti",
-                family_name:"Meikäläinen",
+                fullname:"Matti Meikäläinen",
                 city:"Kaupunki",
             });
             owner.save().then(function(){

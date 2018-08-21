@@ -12,8 +12,8 @@ describe('Test for saving new cat.', function(){
         //Create test
         it("New cat saved to database", function(done){
             var cat = new Cat({
-                name:"Kissa",
-                age:"1",
+                cName:"Kissa",
+                cAge:"1",
             });
             cat.save().then(function(){
                 assert(cat.isNew === false);
