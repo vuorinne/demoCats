@@ -29,6 +29,8 @@ exports.getCatWithOwner = function(req, res) {
         });
     };
 
+
+
 /*
 Can't populate cat's name.
 Crashes the server with error message:
@@ -39,10 +41,10 @@ TODO: Fix it.
 // GET Owner information with Cat
 exports.getOwnerWithCat = function(req, res) {
     Owner.findOne({_id: req.params.id})
-    .populate('cat', 'cName')
-    .exec(function(err, cat) {
+    .populate('owners_cat', 'cName')
+    .exec(function(err, owner) {
         if(err) throw err;
-            console.log('Your cat name is %s', Owner.cat.cName); // return undefined but it works!!
+            console.log('Your cat name is %s', owner.owners_cat.cName); // return undefined but it works!!
             res.json(cat);
         });
     };

@@ -13,26 +13,15 @@ var Schema = mongoose.Schema;
 var ownerSchema = new Schema(
   {
     _id: { type: Schema.ObjectId, auto: true },
-    /*
-    first_name: {
-      type: String, 
-      required: true, 
-      max: 30
-    },
-    family_name: {
-      type: String, 
-      required: true, 
-      max: 30
-    },*/
     fullname: {
       type: String, 
       required: true, 
     },
     city: String,
-    cat: [{
+    owners_cat: {
       type: Schema.Types.ObjectId,
       ref: 'catmodel'
-    }],
+    },
     created: { 
       type: Date, 
       default: Date.now, 

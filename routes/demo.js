@@ -9,6 +9,11 @@ var owner_controller = require('../controllers/ownerController');
 var cat_controller = require('../controllers/catController');
 var catOwner_controller = require('../controllers/catOwnerController');
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('index', { title: 'Express' });
+});
+
 //
 // CAT ROUTING - separate controller module
 //
